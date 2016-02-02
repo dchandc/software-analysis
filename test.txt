@@ -1,0 +1,8 @@
+[call] a
+[call] b
+[call] d
+[return] d
+[return] b
+[call] c
+[return] c
+[return] a
