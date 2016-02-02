@@ -2,6 +2,8 @@
 [call] b
 [call] d
 [return] d
+[call] d
+[return] d
 [return] b
 [call] c
 [return] c
