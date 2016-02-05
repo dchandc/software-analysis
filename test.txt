@@ -7,4 +7,6 @@
 [return] b
 [call] c
 [return] c
+[call] d
+[return] d
 [return] a
