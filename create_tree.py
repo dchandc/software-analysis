@@ -54,7 +54,7 @@ sequence_counts = {}
 current_sequence = []
 
 for line in args.call_file:
-	m = re.match(r'\[call\] (\S+)', line)
+	m = re.match(r'\[Call\] (\S+)', line)
 	if m:
 		method_name = m.group(1)
 		current_node = current_node.enter_node(method_name)
@@ -73,7 +73,7 @@ for line in args.call_file:
 				sequence_counts[sequence_str] += 1
 			current_sequence.pop(0)
 	else:
-		m = re.match(r'\[return\] (\S+)', line)
+		m = re.match(r'\[Return\] (\S+)', line)
 		if m:
 			method_name = m.group(1)
 			current_node = current_node.exit_node(method_name)
