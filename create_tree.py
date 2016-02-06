@@ -13,7 +13,7 @@ class node(object):
 		else:
 			self.depth = 0
 
-	def enter_node(self, method_name = None):
+	def call_child(self, method_name = None):
 		child_node = None
 		for child in self.children:
 			if child.name == method_name:
@@ -25,7 +25,7 @@ class node(object):
 			self.children.append(child_node)
 		return child_node
 
-	def exit_node(self, method_name = None):
+	def return_call(self, method_name = None):
 		if method_name != self.name:
 			sys.exit(self.name + ': invalid return')
 		if not self.parent:
@@ -57,7 +57,7 @@ for line in args.call_file:
 	m = re.match(r'\[Call\] (\S+)', line)
 	if m:
 		method_name = m.group(1)
-		current_node = current_node.enter_node(method_name)
+		current_node = current_node.call_child(method_name)
 
 		if method_name not in method_counts:
 			method_counts[method_name] = 1
@@ -76,7 +76,7 @@ for line in args.call_file:
 		m = re.match(r'\[Return\] (\S+)', line)
 		if m:
 			method_name = m.group(1)
-			current_node = current_node.exit_node(method_name)
+			current_node = current_node.return_call(method_name)
 
 			if not args.no_returns:
 				current_sequence.append('<' + method_name)
@@ -87,8 +87,6 @@ for line in args.call_file:
 					else:
 						sequence_counts[sequence_str] += 1
 					current_sequence.pop(0)
-		else:
-			sys.exit('unknown line: ' + line)
 
 print root_node
 if current_node != root_node:
