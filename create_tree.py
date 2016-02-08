@@ -81,7 +81,7 @@ for line in args.call_file:
 
 			current_sequence.append('>' + method_name)
 			if len(current_sequence) >= args.k:
-				sequence_str = ', '.join(current_sequence)
+				sequence_str = '+'.join(current_sequence)
 				if sequence_str not in sequence_counts:
 					sequence_counts[sequence_str] = 1
 				else:
@@ -106,7 +106,7 @@ for line in args.call_file:
 			if not args.no_returns:
 				current_sequence.append('<' + method_name)
 				if len(current_sequence) >= args.k:
-					sequence_str = ', '.join(current_sequence)
+					sequence_str = '+'.join(current_sequence)
 					if sequence_str not in sequence_counts:
 						sequence_counts[sequence_str] = 1
 					else:
