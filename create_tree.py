@@ -30,10 +30,10 @@ class node(object):
 			if self.name not in children_counts:
 				children_counts[self.name] = 1
 			else:
-				children_counts[self.name] += 1
+				children_counts[self.name] = max(children_counts[self.name], len(self.children))
 		return child_node
 
-	def return_call(self, method_name = None):
+	def return_call(self):
 		if not self.parent:
 			sys.exit(self.name + ': missing parent')
 		if str(self.depth) not in depth_counts:
@@ -97,9 +97,11 @@ for line in args.call_file:
 		elif method_type == "[Return]":
 			if method_name != current_node.name:
 				if method_name == current_node.parent:
-					current_node = current_node.parent.return_call(method_name)
+					current_node = current_node.parent.return_call()
+				else:
+					continue
 			else:
-				current_node = current_node.return_call(method_name)
+				current_node = current_node.return_call()
 
 			if not args.no_returns:
 				current_sequence.append('<' + method_name)
@@ -140,8 +142,8 @@ for line in args.call_file:
 #	f.write('method_name,count\n')
 #	for sorted_key in sorted(children_counts, key=children_counts.get, reverse=True):
 #		f.write(sorted_key + ',' + str(children_counts[sorted_key]) + '\n')
-
-with open('depth_counts.csv', 'w') as f:
-	f.write('depth,count\n')
-	for key in sorted(depth_counts.iterkeys(), cmp=lambda x, y: cmp(int(x), int(y))):
-		f.write(key + ',' + str(depth_counts[key]) + '\n')
+#
+#with open('depth_counts.csv', 'w') as f:
+#	f.write('depth,count\n')
+#	for key in sorted(depth_counts.iterkeys(), cmp=lambda x, y: cmp(int(x), int(y))):
+#		f.write(key + ',' + str(depth_counts[key]) + '\n')
