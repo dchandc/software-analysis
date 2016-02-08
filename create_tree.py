@@ -143,5 +143,5 @@ for line in args.call_file:
 
 with open('depth_counts.csv', 'w') as f:
 	f.write('depth,count\n')
-	for sorted_key in sorted(depth_counts, key=depth_counts.get, reverse=True):
-		f.write(sorted_key + ',' + str(depth_counts[sorted_key]) + '\n')
+	for key in sorted(depth_counts.iterkeys(), cmp=lambda x, y: cmp(int(x), int(y))):
+		f.write(key + ',' + str(depth_counts[key]) + '\n')
